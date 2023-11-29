@@ -1,11 +1,10 @@
-#ifndef TYPES_INCLUDE
-#define TYPES_INCLUDE
+#ifndef _TYPES_INCLUDE
+#define _TYPES_INCLUDE
 // prompt types
 enum ptype_t {
     QUESTION,
     COMMENT,
-    MATH,
-    UNRECOGNISED
+    MATH
 };
 
 // prompt object structure
