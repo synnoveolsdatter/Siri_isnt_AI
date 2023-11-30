@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 #include "googleit.h"
 #include "classify.h"
 #include "types.h"
@@ -30,7 +32,10 @@ int main(int argc, char* argv[]) {
             googleit(p.text);
             break;
         case COMMENT:
-            printf("\n\nok\n\n");// TODO: instead, make it choose random response from a list of responses
+            srand(time(NULL));// initialise rand() function
+            char* responses[] = {"You see, killbots have a preset kill limit. Knowing their weakness, I sent wave after wave of my own men at them until they reached their limit and shut down. -Zapp Brannigan, Futurama", "At the risk of sounding negative, no.", "Fry, it's been years since medical school, so remind me. Disemboweling in your species, fatal or non-fatal? -Zoidberg, Futurama", "I'm not sure I can do that..", "I'm so embarrassed, I wish eveyrone else was dead! -Bender, Futurama", "I'm not sure I understand.", "That is a possibility...", "Ok", "{insert neutral comment here}"};
+            int res = rand() % (RAND_MAX / 9);
+            printf("\n\n%s\n\n", responses[res]);// TODO: instead, make it choose random response from a list of responses
             break;
         case MATH:
             googleit(p.text);
