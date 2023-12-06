@@ -1,5 +1,5 @@
 #ifndef _TYPES_INCLUDE
-#define _TYPES_INCLUDE
+#define _TYPES_INCLUDE 1
 // prompt types
 typedef enum {
     QUESTION,
