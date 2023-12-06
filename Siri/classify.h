@@ -10,7 +10,7 @@
 #ifndef _CLASSIFY_INCLUDE
 #define _CLASSIFY_INCLUDE
 void classify(prompt_t p) {
-    if (p == NULL) perror("Null prompt. || classify.h");
+    if (&p == NULL) perror("Null prompt. || classify.h");
 
     // look for numbers, if found then classify the prompt as a math prompt
     for (int i = 0; i < (int)strlen(p.text); i++) {
@@ -30,8 +30,8 @@ void classify(prompt_t p) {
     }
     char fw[ned];
     strlcpy(fw, p.text, (size_t)ned);
-    if (fw[0] >= 65 && <= 90) fw[0] += 32;// if the first letter is capitalised, we put it in lowercase
-    if (fw == "which" || fw == "when" || fw == "what" || fw == "do" || fw == "does" || fw == "who" || fw == "where" || fw == "why") {
+    if (fw[0] >= 65 && fw[0] <= 90) fw[0] += 32;// if the first letter is capitalised, we put it in lowercase
+    if (fw == "which" || fw == "when" || fw == "what" || fw == "do" || fw == "does" || fw == "who" || fw == "where" || fw == "why" || fw == "are" || "is" || "can") {
         p.type = QUESTION;
         return;
     } else {
