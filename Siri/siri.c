@@ -6,6 +6,7 @@
 #include "googleit.h"
 #include "classify.h"
 #include "types.h"
+#include "tokenize.h"
 
 /*
 *   CODE STRUCTURE:
@@ -18,22 +19,11 @@
 *     - always checking return values (yes, even printf()), voiding ones you don't care about.
 */
 
-typedef enum {// really just thought of all the operations I could lol
-    ADD,
-    SUB,
-    MUL,
-    DIV,
-    SQRT,
-    SQR,
-    NUM,
-    FACT// factorial
-} operation_t;
-
 int findPtrs(unsigned int l, unsigned int r, char* t) {
     l = 0;
     r = 0;
     for (int i = 0; i < (int)strlen(t); i++) {
-        if (rptr > lptr) continue; // I'm sure there's a much better way to break the loop, but I honestly can't think of it
+        if (r > l) continue; // I'm sure there's a much better way to break the loop, but I honestly can't think of it
         if (t[i] >= 48 && t[i] <= 57) {
             if (l == 0) l = i;
             if (l > 0 && r < i && (t[i - 1] < 48 || t[i - 1] > 57)) r = i;// third condition makes sure that both pointers dont point to the same number
@@ -44,8 +34,9 @@ int findPtrs(unsigned int l, unsigned int r, char* t) {
 }
 
 int trimTxt(unsigned int l, unsigned int r, prompt_t p) {
-    if (*p == NULL) return -1;
-    char new[(r - l) + 1] = {'\0'};
+    // if (p == NULL) return -1;
+    // char new[(r - l)] + 1 = {'\0'};
+    char* new = (char*)malloc((r - l + 1));
     for (unsigned int i = l; i < r; i++) new[i] = p.text[i];
     p.text = new;
     return 0;
@@ -64,15 +55,17 @@ int main(int argc, char* argv[]) {
             snprintf(p.text, sizeof(p.text), "%s", inp);// p.text = inp;
         }
     }
-    classify(p);
+    classify(&p);
     switch (p.type) {// i could just make classify return a ptype_t but i dont feel like that and i'm gonna be presenting this and this is easier to understand
         /*case MATH:
             unsigned int lptr = 0;
             unsigned int rptr = 0;
             if (findPtrs(lptr, rptr, p.text) < 0) {
                 errno = 1;
-                perror("Less than 2 numbers found. Attempting to shut down computer.");// hope they get a kick outta that one
+                perror("\nLess than 2 numbers found. Attempting to shut down computer.\n");// hope they get a kick outta that one
             }
+            (void)trimTxt(lptr, rptr, p);
+
             break;*/
         case COMMENT:
             srand(time(NULL));// initialise rand() function
